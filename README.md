@@ -6,6 +6,7 @@ PulseBoard is a compact Next.js app for turning raw user feedback into product s
 
 - Next.js App Router with TypeScript
 - Server-side analysis route for AI-powered theme extraction
+- Optional AWS S3 archival for completed feedback analyses
 - Deterministic fallback clustering when no API key is present
 - Clean product analytics dashboard with top themes, quotes, and recommendations
 
@@ -21,7 +22,12 @@ Optional environment variables:
 ```bash
 OPENAI_API_KEY=sk-...
 OPENAI_MODEL=gpt-4.1-mini
+AWS_REGION=us-east-1
+AWS_S3_BUCKET=pulseboard-analysis-archives
+AWS_S3_PREFIX=pulseboard-analyses
 ```
+
+If `AWS_S3_BUCKET` is configured, the analysis route writes each completed report to Amazon S3 and surfaces the object location in the UI. The repo also includes `amplify.yml` for AWS deployment.
 
 ## Example use cases
 

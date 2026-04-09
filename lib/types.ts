@@ -21,4 +21,6 @@ export type AnalysisResult = {
   strongestPositiveSignal: string;
   summary: string;
   themes: ThemeInsight[];
+  archiveProvider?: string;
+  archiveLocation?: string;
 };

@@ -8,8 +8,7 @@ import { ThemeCard } from "@/components/ThemeCard";
 
 function parseFeedback(text: string): FeedbackItem[] {
   return text
-    .split("
-")
+    .split("\n")
     .map((line, index) => line.trim())
     .filter(Boolean)
     .map((line, index) => ({
@@ -21,8 +20,7 @@ function parseFeedback(text: string): FeedbackItem[] {
 }
 
 export default function HomePage() {
-  const [input, setInput] = useState(defaultFeedback.map((item) => item.text).join("
-"));
+  const [input, setInput] = useState(defaultFeedback.map((item) => item.text).join("\n"));
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -69,11 +67,15 @@ export default function HomePage() {
               <button className="rounded-xl bg-cyan-400 px-4 py-2 font-medium text-zinc-950" onClick={runAnalysis}>
                 {loading ? "Analyzing..." : "Analyze feedback"}
               </button>
-              <button className="rounded-xl border border-zinc-700 px-4 py-2 text-zinc-200" onClick={() => setInput(defaultFeedback.map((item) => item.text).join("
-"))}>
+              <button className="rounded-xl border border-zinc-700 px-4 py-2 text-zinc-200" onClick={() => setInput(defaultFeedback.map((item) => item.text).join("\n"))}>
                 Load demo data
               </button>
             </div>
+            {result?.archiveLocation ? (
+              <p className="mt-3 text-sm text-zinc-400">
+                Archived via <span className="font-medium text-zinc-200">{result.archiveProvider}</span>: {result.archiveLocation}
+              </p>
+            ) : null}
           </div>
 
           <div className="grid gap-4 self-start md:grid-cols-2 lg:grid-cols-1">
